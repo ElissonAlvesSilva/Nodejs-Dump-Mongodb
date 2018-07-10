@@ -9,7 +9,7 @@ exports.stringToDate = (dateString) => {
 
 /* return if variable is empty or not. */
 exports.empty = (mixedVar) => {
-    const undef, key, i, len;
+    var undef, key, i, len;
     const emptyValues = [undef, null, false, 0, '', '0'];
     for (i = 0, len = emptyValues.length; i < len; i++) {
         if (mixedVar === emptyValues[i]) {

@@ -1,4 +1,4 @@
-export const dbOptions =  {
+const dbOptions =  {
     user: '<databaseUsername>',
     pass: '<databasePassword>',
     host: 'localhost',
@@ -8,4 +8,8 @@ export const dbOptions =  {
     removeOldBackup: true,
     keepLastDaysBackup: 2,
     autoBackupPath: '<serverPath>' // i.e. /var/database-backup/
+};
+
+module.exports = {
+    dbOptions
 };
