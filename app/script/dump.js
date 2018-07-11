@@ -2,12 +2,14 @@ const fs = require('fs');
 const _ = require('lodash');
 const exec = require('child_process').exec;
 const mail = require('../service/mail');
+const moment = require('moment-timezone');
+moment.locale("pt-BR");
 
 const dbConfig = require('../config/database-config');
 const dbOptions = dbConfig.db.dbOptions;
 
 exports.stringToDate = (dateString) => {
-    return new Date(dateString);
+    return new Date(dateString).toLocaleString('pt-BR', { timeZone: 'America/Manaus' });
 }
 
 
@@ -35,9 +37,10 @@ exports.dbAutoBackUp = () => {
     if (dbOptions.autoBackup == true) {
         var date = new Date();
 
+        date = date.toLocaleString('pt-BR', { timeZone: 'America/Manaus' });
         var beforeDate, oldBackupDir, oldBackupPath;
-        currentDate = this.stringToDate(date); // Current date
-        var newBackupDir = date.getHours() + ':' + date.getHours() + '-' + currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
+        currentDate = this.stringToDate(date); 
+        var newBackupDir = currentDate;
         var newBackupPath = dbOptions.autoBackupPath + 'mongodump-' + newBackupDir; // New backup path for current backup process
 
         if (dbOptions.removeOldBackup == true) {
@@ -50,12 +53,11 @@ exports.dbAutoBackUp = () => {
 
         exec(cmd, function (error, stdout, stderr) {
             if (empty(error)) {
-                var dateNow = new Date();
-                currentDate = new Date(dateNow); // Current date
+        
+                let currentDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Manaus' });
                 //send feedback email
-                let date = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getFullYear();
-                let hour = dateNow.getHours() + ':' + dateNow.getMinutes();
-                mail.send_mail_backup_feedback(dbOptions.emailFeedback, date, hour);
+                let date = currentDate;
+                mail.send_mail_backup_feedback(dbOptions.emailFeedback, date);
                 if (dbOptions.removeOldBackup == true) {
                     if (fs.existsSync(oldBackupPath)) {
                         exec("rm -rf " + oldBackupPath, function (err) {});

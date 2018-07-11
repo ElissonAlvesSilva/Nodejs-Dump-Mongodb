@@ -4,7 +4,6 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
-
 const from = "elisson.silva@buritech.com.br";
 const from_password = "elisson123@@";
 const smtp = "host282.hostmonster.com";
@@ -23,14 +22,13 @@ const transporter = nodemailer.createTransport({
 
 
 
-exports.send_mail_backup_feedback = (destinatario, date, hour) => {
+exports.send_mail_backup_feedback = (destinatario, date) => {
 
-    const template = fs.readFileSync(__dirname + '/../template/email_cadastro.html', 'utf-8');
+    const template = fs.readFileSync(__dirname + '/../template/mail.html', 'utf-8');
     const compiledTemplateHtml = handlebars.compile(template);
 
     let replacements = {
-        date: date,
-        hour: hour
+        date: date
     };
     let htmlToSend = compiledTemplateHtml(replacements);
     let mailOptions = {
