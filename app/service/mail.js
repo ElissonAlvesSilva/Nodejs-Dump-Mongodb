@@ -34,7 +34,7 @@ exports.send_mail_backup_feedback = (destinatario, date) => {
     let mailOptions = {
         from: from,
         to: destinatario,
-        subject: 'Backup RH Mobi',
+        subject: 'Backup Mongodb',
         html: htmlToSend,
     };
 
