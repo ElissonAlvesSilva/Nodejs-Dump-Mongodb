@@ -13,7 +13,7 @@ exports.stringToDate = (dateString) => {
         timeZone: 'America/Manaus'
     }, {
         day: 'numeric',
-        month: 'short',
+        month: 'numeric',
         year: 'numeric'
     }).split(' ').join('-');
 }
@@ -43,15 +43,9 @@ exports.dbAutoBackUp = () => {
     if (dbOptions.autoBackup == true) {
         var date = new Date();
 
-        date = date.toLocaleString('pt-BR', {
-            timeZone: 'America/Manaus'
-        }, {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        }).split(' ').join('-');
         var beforeDate, oldBackupDir, oldBackupPath;
-        currentDate = this.stringToDate(date);
+        currentDate = this.stringToDate(moment());
+
         var newBackupDir = currentDate;
         var newBackupPath = dbOptions.autoBackupPath + 'mongodump-' + newBackupDir; // New backup path for current backup process
 
