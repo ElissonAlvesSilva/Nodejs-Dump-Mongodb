@@ -15,7 +15,7 @@ exports.stringToDate = (dateString) => {
         day: 'numeric',
         month: 'short',
         year: 'numeric'
-    }).split(' ').join('-');
+    }).split('/').join('-');
 }
 
 
@@ -44,7 +44,8 @@ exports.dbAutoBackUp = () => {
         var date = new Date();
 
         var beforeDate, oldBackupDir, oldBackupPath;
-        currentDate = this.stringToDate(moment().toString());
+
+        currentDate = makeDate(moment());
 
         var newBackupDir = currentDate;
         var newBackupPath = dbOptions.autoBackupPath + 'mongodump-' + newBackupDir; // New backup path for current backup process
@@ -73,4 +74,12 @@ exports.dbAutoBackUp = () => {
             }
         });
     }
+}
+
+function makeDate(_date) {
+    let date = '';
+
+    date = `${_date.year()}-${_date.month()}-${_date.date()}-${_date.hours()}:${_date.minute()}`;
+
+    return date;
 }
