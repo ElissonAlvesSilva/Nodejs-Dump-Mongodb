@@ -54,7 +54,7 @@ exports.dbAutoBackUp = () => {
         currentDate = this.stringToDate(date);
         var newBackupDir = currentDate;
         var newBackupPath = dbOptions.autoBackupPath + 'mongodump-' + newBackupDir; // New backup path for current backup process
-        console.log(newBackupDir);
+
         // if (dbOptions.removeOldBackup == true) {
         //     beforeDate = _.clone(currentDate);
         //     beforeDate.setDate(beforeDate.getDate() - dbOptions.keepLastDaysBackup); // Substract number of days to keep backup and remove old backup
@@ -64,9 +64,7 @@ exports.dbAutoBackUp = () => {
         var cmd = 'mongodump --host ' + dbOptions.host + ' --port ' + dbOptions.port + ' --db ' + dbOptions.database + ' --username ' + dbOptions.user + ' --password ' + dbOptions.pass + ' ' + dbOptions.typeFile + ' --out ' + newBackupPath; // Command for mongodb dump process
 
         exec(cmd, function (error, stdout, stderr) {
-            console.log(error);
             if (empty(error)) {
-
                 let currentDate = new Date().toLocaleString('pt-BR', {
                     timeZone: 'America/Manaus'
                 });
