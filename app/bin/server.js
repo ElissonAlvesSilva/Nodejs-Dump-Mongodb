@@ -4,4 +4,4 @@ const Cron = require('../script/dump');
 
 new CronJob('* * * * * *', () => {
     Cron.dbAutoBackUp();
-}, null, true, 'America/New_York');
+}, null, true, 'America/Manaus');
