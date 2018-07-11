@@ -4,9 +4,9 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
-const from = "elisson.silva@buritech.com.br";
-const from_password = "elisson123@@";
-const smtp = "host282.hostmonster.com";
+const from = "<email></email>";
+const from_password = "<password></password>";
+const smtp = "<stmp></stmp>";
 
 
 const transporter = nodemailer.createTransport({
